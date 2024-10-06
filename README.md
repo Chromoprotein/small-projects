@@ -1,5 +1,15 @@
 # React mini-projects
 
+### Pexel API
+
+Searching stock photos with the Pexel API. It has a simple Node.js backend, debouncing, and pagination.
+
+To do:
+
+* organize files
+
+* search button that skips the debouncing wait.
+
 ### ToDoList
 
 A simple to-do list that saves the items in local storage.
