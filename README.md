@@ -4,11 +4,7 @@
 
 Searching stock photos with the Pexel API. It has a simple Node.js backend, debouncing, and pagination.
 
-To do:
-
-* organize files
-
-* search button that skips the debouncing wait.
+To do: search button that skips the debouncing wait.
 
 ### ToDoList
 
