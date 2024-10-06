@@ -8,6 +8,6 @@ To do: styling
 
 ### PlaceholderPosts
 
-It fetches posts from https://jsonplaceholder.typicode.com/posts. It has simple pagination, error handling, and a custom hook.
+It fetches posts from https://jsonplaceholder.typicode.com/posts. It has simple pagination, error handling, and a custom hook. Uses TypeScript.
 
 To do: styling

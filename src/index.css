@@ -11,3 +11,139 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/*Pexel app*/
+* {
+  box-sizing: border-box;
+}
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.dark {
+  background-color: rgb(33, 32, 32);
+}
+.light {
+  background-color: rgb(48, 48, 49);
+}
+.grow {
+  flex: 1;
+}
+.searchBar {
+  padding:10px;
+  margin:10px;
+  background-color: rgb(209, 223, 235);
+  border: 1px solid transparent;
+  border-radius: 7px;
+}
+p, input, input::placeholder {
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+.title {
+  padding:10px;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color:rgb(116, 12, 123);
+  font-size: 2.5em;
+}
+.flexbox {
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width:100%;
+  height:100%;
+}
+.flexboxCol {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.width400 {
+  width: 100%;
+  max-width: 400px;
+}
+.paddingB {
+  padding-bottom: 30px;
+}
+.paddingT {
+  padding-top: 30px;
+}
+.image {
+  width:100%;
+  max-width:500px;
+  margin:10px;
+  border-radius: 10px;
+}
+.button {
+  padding:10px 20px 10px 20px;
+  margin:10px;
+  border-radius:20px;
+  border:1px solid transparent;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: bold;
+  font-size: 1.2em;
+  width:150px;
+}
+.button:hover:not(:disabled) {
+  background-color: rgb(116, 12, 123);
+}
+
+/*spinner*/
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #FFF;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/*button inside input field*/
+.input-container {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+}
+
+.input-container input {
+  width: 100%;
+  padding:10px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  border: 1px solid transparent;
+}
+
+.input-container button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  border: 1px solid transparent;
+  background-color: white;
+  padding: 0 15px;
+  cursor: pointer;
+  border-radius: 0 20px 20px 0;
+}
+
+.input-container input,
+.input-container button {
+  font-size: 16px;
+}
