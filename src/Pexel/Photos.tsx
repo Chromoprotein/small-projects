@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { usePhotos } from './usePhotos.ts';
 import { Photo } from './usePhotos.ts';
@@ -6,31 +6,34 @@ import { Photo } from './usePhotos.ts';
 export default function Photos() {
 
   const { query, setQuery, page, setPage, photos, getPhotos, errorMessage, totalPages, loading } = usePhotos();
+  const [tempQuery, setTempQuery] = useState(query);
 
+  // Tracking user input, this is updated immediately
+  const handleTempQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newQuery = e.target.value;
+    setTempQuery(newQuery);
+  }
+
+  // Debounce the search. Search query is updated to user input after delay
+  useEffect(() => {
+    const timer = setTimeout(() => setQuery(tempQuery), 1000);
+
+    return () => clearTimeout(timer);
+  }, [tempQuery, setQuery]);
+
+  // When the search query is updated, run the search
   useEffect(() => {
     getPhotos();
   }, [query, page, getPhotos])
 
-  const debounce = (callback, delay = 300) => {
-    let timer;
-    return (...args) => {
-      clearTimeout(timer);
-      timer = setTimeout(() => callback(...args), delay);
-    }
+  // Manually submit search without waiting for debounce
+  const manualSearch = () => {
+    setQuery(tempQuery);
   }
-
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newQuery = e.target.value;
-    setQuery(newQuery);
-  }
-
-  const debouncedSearch = debounce(handleSearch);
 
   const paginate = (nextPage: number) => {
     setPage(nextPage);
   }
-
-  console.log(page);
 
   return (
     <div className="container light">
@@ -39,8 +42,8 @@ export default function Photos() {
         <h1 className="title">Pexels API project</h1>
 
         <div className="input-container">
-          <input type="text" placeholder="Search free photos" onChange={debouncedSearch} name="search" id="search" />
-          <button type="button"><FaMagnifyingGlass /></button>
+          <input type="text" placeholder="Search free photos" onChange={handleTempQuery} name="search" id="search" />
+          <button type="button" onClick={manualSearch}><FaMagnifyingGlass /></button>
         </div>
 
       </div>
