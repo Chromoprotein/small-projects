@@ -35,7 +35,6 @@ export function usePhotos() {
         });
         setPhotos(mappedResults);
         setTotalPages(Math.ceil(response.data.total_results/response.data.per_page));
-        console.log(response.data)
       }
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : "An error occurred");
@@ -44,5 +43,11 @@ export function usePhotos() {
     }
   }, [query, page])
 
-  return { query, setQuery, page, setPage, photos, getPhotos, errorMessage, totalPages, loading }
+  const reset = () => {
+    setQuery("");
+    setPhotos([]);
+    setPage(1);
+  }
+
+  return { query, setQuery, page, setPage, photos, getPhotos, errorMessage, totalPages, loading, reset }
 }
