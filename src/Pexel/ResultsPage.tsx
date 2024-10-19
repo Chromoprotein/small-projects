@@ -3,9 +3,8 @@ import InputAndLoader from "./InputAndLoader.tsx";
 import { Photo } from "./usePhotos";
 import { useSearchParams } from "react-router-dom";
 import { usePhotos } from "./usePhotos.ts";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDebounce } from "./useDebounce.ts";
 
 export default function ResultsPage() {
 
@@ -16,6 +15,8 @@ export default function ResultsPage() {
   // Query params from the URL when coming from splash page
   const [searchParams] = useSearchParams();
   const queryURL = searchParams.get('q');
+  const pageURL = searchParams.get('p');
+
   const navigate = useNavigate();
 
   // query = search words in the API call
@@ -23,29 +24,32 @@ export default function ResultsPage() {
   // getPhotos = function for searching
   const { query, setQuery, page, setPage, photos, getPhotos, errorMessage, totalPages, loading } = usePhotos();
 
-  // If there is a query URL params, update the query to it
+  // Use the search query or page number from the URL. This will trigger the search effect
   useEffect(() => {
-    if(queryURL) {
-      setQuery(queryURL);
-    }
-  }, [queryURL, setQuery])
+    if (queryURL) setQuery(queryURL);
+    if (pageURL) setPage(parseInt(pageURL));
+  }, [queryURL, pageURL, setQuery, setPage]);
 
   // Tracking user input
   const [userInput, setUserInput] = useState<string>(queryURL || "");
-  // Use custom debounce hook
   const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newQuery = e.target.value;
     setUserInput(newQuery);
   }
 
-  const debouncedQuery = useDebounce(userInput, 1000);
-  // Trigger query change when debounced value updates
-  useEffect(() => {
-    if (debouncedQuery) {
-      navigate(`/results?q=${encodeURIComponent(debouncedQuery)}`);
-      setQuery(debouncedQuery);
+  // Submit the search term, this will trigger the search effect
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (userInput.trim()) {
+      navigate(`/results?q=${encodeURIComponent(userInput)}`);
     }
-  }, [debouncedQuery, setQuery, navigate]);
+  }
+
+  // Submit the page number, this will trigger the search effect
+  const paginate = (nextPage: number) => {
+    setPage(nextPage);
+    navigate(`/results?q=${encodeURIComponent(query)}&p=${nextPage}`);
+  }
 
   // Trigger search when query or page changes
   useEffect(() => {
@@ -54,21 +58,11 @@ export default function ResultsPage() {
     }
   }, [query, page, getPhotos]);
 
-  const paginate = (nextPage: number) => {
-    setPage(nextPage);
-  }
-
-  // Manually trigger search (without debounce)
-  const manualSearch = () => {
-    navigate(`/results?q=${encodeURIComponent(userInput)}`);
-    setQuery(userInput);
-  };
-
   return (
     <div className="container light">
       <nav className="flexbox left dark navbar">
         <a href="/" className="smallTitle">Pexel API</a>
-        <InputAndLoader query={userInput} handleTempQuery={handleUserInput} manualSearch={manualSearch} loading={loading} />
+        <InputAndLoader userInput={userInput} handleUserInput={handleUserInput} handleSearch={handleSearch} loading={loading} />
       </nav>
 
       {errorMessage && <p>{errorMessage}</p>}

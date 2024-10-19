@@ -1,6 +1,6 @@
 import React from "react";
 import InputAndLoader from "./InputAndLoader.tsx";
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import './pexel.css';
 
@@ -9,27 +9,18 @@ export default function SplashPage() {
   const navigate = useNavigate();
 
   // Tracks the user input
-  const [tempQuery, setTempQuery] = useState("");
+  const [userInput, setUserInput] = useState("");
 
-  const handleTempQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newQuery = e.target.value;
-    setTempQuery(newQuery);
+    setUserInput(newQuery);
   }
 
-  // Debounce the search
-  useEffect(() => {
-    if (tempQuery.trim() === "") return; // do not search if query is empty
-
-    const timer = setTimeout(() => navigate(`/results?q=${encodeURIComponent(tempQuery)}`), 1000);
-
-    return () => clearTimeout(timer);
-  }, [tempQuery, navigate]);
-
-
-  // Manually submit the search without waiting for the debounce
-  const manualSearch = () => {
-    if(tempQuery && tempQuery.length > 0) {
-      navigate(`/results?q=${encodeURIComponent(tempQuery)}`);
+  // Manually submit the search
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if(userInput && userInput.length > 0) {
+      navigate(`/results?q=${encodeURIComponent(userInput)}`);
     }
   }
 
@@ -40,7 +31,7 @@ export default function SplashPage() {
       <div className="flexboxCol paddingB heroText">
         <h1 className="title">Free Stock Photos from Pexel API</h1>
 
-        <InputAndLoader query={tempQuery} handleTempQuery={handleTempQuery} manualSearch={manualSearch} />
+        <InputAndLoader userInput={userInput} handleUserInput={handleUserInput} handleSearch={handleSearch} />
 
       </div>
     </div>

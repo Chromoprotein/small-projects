@@ -12,7 +12,7 @@ To do:
 
 * Add a logo
 
-* Include page number in the useSearchParams
+* message for empty results
 
 ### ToDoList
 
