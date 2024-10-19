@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5000;
 // Enable CORS for all requests
 app.use(cors());
 
-// Define a route to proxy the request to the Pexels API
+// PEXEL
 app.get("/api/images", async (req, res) => {
   const query = req.query.query || "nature"; // Default query if none provided
   const page = req.query.page || 1;

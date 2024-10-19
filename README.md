@@ -12,7 +12,7 @@ To do:
 
 * Add a logo
 
-* Move the CSS into the project's own folder
+* Include page number in the useSearchParams
 
 ### ToDoList
 

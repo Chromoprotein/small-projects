@@ -43,11 +43,5 @@ export function usePhotos() {
     }
   }, [query, page])
 
-  const reset = () => {
-    setQuery("");
-    setPhotos([]);
-    setPage(1);
-  }
-
-  return { query, setQuery, page, setPage, photos, getPhotos, errorMessage, totalPages, loading, reset }
+  return { query, setQuery, page, setPage, photos, getPhotos, errorMessage, totalPages, loading }
 }
