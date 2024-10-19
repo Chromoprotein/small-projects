@@ -41,6 +41,7 @@ export default function ResultsPage() {
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (userInput.trim()) {
+      setQuery(query);
       navigate(`/results?q=${encodeURIComponent(userInput)}`);
     }
   }
