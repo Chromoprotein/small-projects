@@ -6,13 +6,13 @@ Searching stock photos with the Pexel API. It has a simple Node.js backend (in t
 
 To do:
 
-* Downloading images by single click
-
 * Skeleton loaders
 
 * Add a logo
 
-* message for empty results
+* style the full resolution image page and add a download button
+
+* style the 0 results found message
 
 ### ToDoList
 

@@ -20,7 +20,7 @@ export default function SplashPage() {
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if(userInput && userInput.length > 0) {
-      navigate(`/results?q=${encodeURIComponent(userInput)}`);
+      navigate(`/results?q=${encodeURIComponent(userInput)}&p=1`);
     }
   }
 

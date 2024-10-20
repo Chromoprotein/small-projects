@@ -37,16 +37,17 @@ export default function ResultsPage() {
     setUserInput(newQuery);
   }
 
-  // Submit the search term, this will trigger the search effect
+  // Set the search term and reset the page number, this will trigger the search effect
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (userInput.trim()) {
       setQuery(query);
-      navigate(`/results?q=${encodeURIComponent(userInput)}`);
+      setPage(1);
+      navigate(`/results?q=${encodeURIComponent(userInput)}&p=1`);
     }
   }
 
-  // Submit the page number, this will trigger the search effect
+  // Set the page number, this will trigger the search effect
   const paginate = (nextPage: number) => {
     setPage(nextPage);
     navigate(`/results?q=${encodeURIComponent(query)}&p=${nextPage}`);
@@ -66,21 +67,27 @@ export default function ResultsPage() {
         <InputAndLoader userInput={userInput} handleUserInput={handleUserInput} handleSearch={handleSearch} loading={loading} />
       </nav>
 
-      {errorMessage && <p>{errorMessage}</p>}
+      <div style={{marginTop: `${height}px`}}>
+        {errorMessage && <p>{errorMessage}</p>}
 
-      {(photos && photos.length > 0) &&
-        <div style={{marginTop: `${height}px`}}>
-          <div className="flexbox centered fullHeigthWidth">
-            {photos.map((photo: Photo) => 
-            <img key={photo.id} src={photo.src} alt={photo.alt} className="image" />
-          )}
-          </div>
-          <div className="flexbox centered paddingT paddingB fullHeigthWidth">
-            <button onClick={() => paginate(page-1)} disabled={page === 1} className="button">Previous</button>
-            <button onClick={() => paginate(page+1)} disabled={page === totalPages} className="button">Next</button>
-          </div>
-        </div>
-      }
+        {(!loading && photos && photos.length > 0) &&
+            <>
+              <div className="flexbox centered fullHeigthWidth">
+                {photos.map((photo: Photo) => 
+                <a href={`/fullImage/${encodeURIComponent(photo.originalSrc)}`} target="_blank" rel="noreferrer">
+                  <img key={photo.id} src={photo.src} alt={photo.alt} className="image" />
+                </a>
+              )}
+              </div>
+              <div className="flexbox centered paddingT paddingB fullHeigthWidth">
+                <button onClick={() => paginate(page-1)} disabled={page === 1} className="button">Previous</button>
+                <button onClick={() => paginate(page+1)} disabled={page === totalPages} className="button">Next</button>
+              </div>
+            </>
+        }
+
+        {photos.length === 0 && <p>0 results found</p>}
+      </div>
     </div>
   );
 }

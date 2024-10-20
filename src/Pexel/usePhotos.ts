@@ -4,6 +4,7 @@ import { useState, useCallback } from 'react';
 export interface Photo {
   id: string;
   src: string;
+  originalSrc: string;
   alt: string;
 }
 
@@ -29,7 +30,8 @@ export function usePhotos() {
         const mappedResults = response.data.photos.map((photo) => {
           return {
             id: photo.id,
-            src: photo.src.original,
+            src: photo.src.medium,
+            originalSrc: photo.src.original,
             alt: photo.alt,
           }
         });

@@ -5,6 +5,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import FullImagePage from './Pexel/FullImagePage.tsx';
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
   {
     path: "results",
     element: <ResultsPage />,
+  },
+  {
+    path: "fullImage/:image",
+    element: <FullImagePage />,
   },
 ]);
 

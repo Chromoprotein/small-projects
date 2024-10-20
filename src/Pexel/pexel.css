@@ -91,10 +91,14 @@ a {
 }
 
 .image {
-    width: 100%;
-    max-width: 500px;
+    width:auto;
+    max-height:350px;
     margin: 10px;
     border-radius: 10px;
+}
+
+.imageFull {
+    width:100%;
 }
 
 .heroImage {
