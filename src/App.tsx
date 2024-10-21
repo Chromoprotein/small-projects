@@ -17,7 +17,7 @@ const router = createBrowserRouter([
     element: <ResultsPage />,
   },
   {
-    path: "fullImage/:image",
+    path: "fullImage/:id",
     element: <FullImagePage />,
   },
 ]);

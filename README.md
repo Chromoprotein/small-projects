@@ -6,13 +6,19 @@ Searching stock photos with the Pexel API. It has a simple Node.js backend (in t
 
 To do:
 
-* Skeleton loaders
+* skeleton loaders / suspense
 
-* Add a logo
-
-* style the full resolution image page and add a download button
+* add a logo
 
 * style the 0 results found message
+
+* add an error page
+
+* fix the front page image on mobile. Also it loads too slowly
+
+* fix the "undefined" query when returning to the results page but there is no query in the state
+
+* extract the "search by id" logic into a hook
 
 ### ToDoList
 

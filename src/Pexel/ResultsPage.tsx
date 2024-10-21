@@ -5,6 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import { usePhotos } from "./usePhotos.ts";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function ResultsPage() {
 
@@ -74,9 +75,13 @@ export default function ResultsPage() {
             <>
               <div className="flexbox centered fullHeigthWidth">
                 {photos.map((photo: Photo) => 
-                <a href={`/fullImage/${encodeURIComponent(photo.originalSrc)}`} target="_blank" rel="noreferrer">
+                <Link
+                  key={photo.id}
+                  to={`/fullImage/${photo.id}`}
+                  state={{ largeUrl: photo.originalSrc, alt: photo.alt, query: query, page: page }}
+                >
                   <img key={photo.id} src={photo.src} alt={photo.alt} className="image" />
-                </a>
+                </Link>
               )}
               </div>
               <div className="flexbox centered paddingT paddingB fullHeigthWidth">
@@ -86,7 +91,7 @@ export default function ResultsPage() {
             </>
         }
 
-        {photos.length === 0 && <p>0 results found</p>}
+        {!loading && photos.length === 0 && <p>0 results found</p>}
       </div>
     </div>
   );
